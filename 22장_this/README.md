@@ -169,7 +169,7 @@ console.log(Circle2.getDiameter()); // 20
 - apply, call, bind 메서드는 Function.prototype의 메서드
   - 모든 함수가 상속받아 사용 가능!!
 
-<img src="./images/그림_22_4.jpg" alt="apply, call, bind 메서드는 모든 함수가 상속받아 사용 가능">
+<img src="./images/그림_22_4.jpg" alt="apply, call, bind 메서드는 모든 함수가 상속받아 사용 가능" height=500px>
 
 1. Function.prototype.apply, Funciton.prototype.call 메서드
 - this로 사용할 객체와 인수 리스트를 인수로 전달받아 함수를 호출
