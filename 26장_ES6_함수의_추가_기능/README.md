@@ -220,6 +220,7 @@ console.log(prefixer.add(['transition', 'user-select']));
 > 일반 함수로서 호출되는 모든 함수 내부의 this는 전역 객체를 가리키는데 클래스 내부의 모든 코드에는 strict mode가 암묵적으로 적용되기 때문에, Array.prototype.map 메서드의 콜백 함수에도 strict mode가 적용되고 strict mode에서 일반 함수로서 호출된 모든 함수 내부의 this에는 undefined가 바인딩 된다!
 
 ➡️ `콜백 함수 내부의 this문제` 발생 (②와 ①이 서로 다른 값을 가리키고 있기 때문에 TypeError 발생!)
+
 ➡️ 과거 콜백 함수 내부의 this 문제는 다음과 같이 해결
 
 1. add 메서드를 호출한 prefixer 객체를 가리키는 this를 일단 회피시킨 후에 콜백 함수 내부에서 사용
