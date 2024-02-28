@@ -6,15 +6,19 @@
 - [44.3 JSON Server를 이용한 REST API 실습](#44.3)
 <br />
 
+#### **💡 `REST(REpresentational State Transfer)` : HTTP를 기반으로 클라이언트가 서버의 리소스에 접근하는 방식을 규정한 아키텍처**
+
 ### 44.1 REST API의 구성<a name="44.1"></a>
 ---
-
 
 ### 44.2 REST API 설계 원칙<a name="44.2"></a>
 ---
 
+
 #### 44.2.1 JSON 표기 방식
+
 #### 44.2.2 JSON.stringify
+
 #### 44.2.3 JSON.parse
 
 ### 44.3 JSON Server를 이용한 REST API 실습<a name="44.2"></a>
