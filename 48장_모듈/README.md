@@ -40,8 +40,88 @@
 
 ### 48.3 ES6 모듈(ESM)<a name="48.2"></a>
 ---
+- ES6에서는 클라이언트 사이드 자바스크립트에서도 동작하는 모듈 기능을 추가(IE를 제외한 대부부분의 브라우저에서 사용 가능)
+
+#### ✅ ES6 모듈(`ESM`)의 사용법은 `script`태그에 `type="module"` 어트리뷰트를 추가하면 로드된 자바스크립트 파일은 모듈로서 동작
+- 일반적인 자바스크립트 파일이 아닌 ESM임을 명확히 하기 위해 `mjs 확장자` 사용 권장
+- 기본적으로 strict mode 적용
+
+```html
+<script type="module" src="app.mjs"></script>
+```
 
 #### 48.3.1 모듈 스코프
-#### 48.3.2 export 키워드
-#### 48.3.3 import 키워드
+- ESM은 독자적인 모듈 스코프를 갖고, ESM이 아닌 일반 자바스크립트 파일은 `script` 태그로 분리해서 로드해도 독자적인 모듈 스코프를 갖지 않음
+- 모듈 내에서 선언한 식별자는 모듈 외부에서 참조 불가능(모듈 스코프가 다르기 때문에!)
 
+
+```html
+<script type="module" src="foo.mjs"></script>
+<script type="module" src="bar.mjs"></script>
+```
+
+```mjs
+// foo.mjs
+const x = 'foo';
+console.log(x); // foo
+
+// bar.mjs
+console.log(x); // ReferenceError: x is not defined
+```
+
+#### 48.3.2 export 키워드
+- 모듈은 `독자적인 모듈 스코프`를 갖기 때문에 모듈 내부에서 선언한 모든 식별자는 기본적으로 해당 모듈 내부에서만 참조 가능
+- 모듈 내부에서 선언한 식별자를 외부에 공개하여 다른 모듈들이 재사용할 수 있게 하려면 `export`키워드 사용
+- `export`키워드는 선언문 앞에 사용하고 변수, 함수, 클래스 등 모든 식별자 export 가능!
+
+```mjs
+const pi = Math.PI;
+
+function square(x) {
+  return x * x;
+}
+
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+// 변수, 함수, 클래스를 하나의 객체로 구성하여 export
+export { pi, square, Person };
+```
+
+#### 48.3.3 import 키워드
+- 다른 모듈에서 공개한 식별자를 자신의 모듈 스코프 내부로 로드하려면 `import` 키워드를 사용
+- 다른 모듈이 export한 식별자 이름으로 import 해야 하며 ESM의 경우 파일 확장자 생략 불가능!
+
+```mjs
+// app.mjs
+import { pi, square, Person } from './lib.mjs';
+
+console.log(pi);      // 3.141592653689793
+console.log(square); // 100
+console.log(new Person('Lee')); // Person { name : 'Lee' }
+```
+
+```html
+// app.mjs는 애플리케이션의 진입점이므로 반드시 script 태그로 로드
+// 하지만 lib.mjs는 app.mjs의 import 문에 의해 로드되는 의존성이므로 따로 script 태그로 로드하지 않아도 됨
+<script type="module" src="app.mjs"></script>
+```
+
+- 모듈이 export한 식별자 이름을 일일이 지정하지 않고 하나의 이름으로 한 번에 import 가능 
+
+  `import * as lib from './lib.mjs';`
+
+- 모듈이 export한 식별자 이름을 변경하여 import 가능
+
+  `import { pi as PI, square as sq, Person as P } from './lib.mjs';`
+
+- 모듈에서 하나의 값만 export한다면 `default` 키워드 사용 가능 -> 기본적으로 이름 없이 하나의 값을 export
+- default 키워드를 사용하는 경우 var, let, const 키워드는 사용 불가능!
+- default 키워드와 함께 export한 모듈은 `{} 없이 임의의 이름으로 import`
+  
+  `export default -> x * x;`
+
+  `import square from './lib.mjs';`
